@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using QuotesApp.Data; // Namespace pro DbContext
 using QuotesApp.Models;
+using QuotesApp.Services; // Namespace pro scraper
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,9 @@ builder.Services.AddIdentityApiEndpoints<IdentityUser>(options =>
 .AddEntityFrameworkStores<QuoteDbContext>();
 
 builder.Services.AddControllers();
+
+// Registrace QuoteScraperService
+builder.Services.AddScoped<QuoteScraperService>();
 
 // Pøidání CORS konfigurace
 builder.Services.AddCors(options =>
@@ -58,5 +62,12 @@ app.MapControllers();
 
 app.MapGroup("/api").MapCustomIdentityApi<IdentityUser>();
 app.UseCors("MyCors");
+
+// Získání instance služby scraperu z DI kontejneru a spuštìní scraperu
+using (var scope = app.Services.CreateScope())
+{
+    var scraperService = scope.ServiceProvider.GetRequiredService<QuoteScraperService>();
+    await scraperService.ScrapeAndSaveQuotesAsync(); // Spuštìní scraperu
+}
 
 app.Run();

@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "opuIXtRUx6hX8MeFTLGbP93JDj7SpcHKTY/ivn8ovYcHP5uecuIcDeTX1GleOoIFFeVX9yOLxwU91V6+Kvc1aQ==",
+  "dgSpecHash": "pPkhajsN9XCd6IxYxjW8L5hUVyfGZ5laTeRY5g9GpaJT8qzBfoNye0KiKpZh5h4iIcghglFztmnKqmxd/4LJrA==",
   "success": true,
   "projectFilePath": "C:\\Users\\lukas\\Downloads\\QuotesApka\\Backend\\QuotesApp\\QuotesApp.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\lukas\\.nuget\\packages\\htmlagilitypack\\1.11.67\\htmlagilitypack.1.11.67.nupkg.sha512",
     "C:\\Users\\lukas\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\lukas\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\8.0.10\\microsoft.aspnetcore.cryptography.internal.8.0.10.nupkg.sha512",
     "C:\\Users\\lukas\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\8.0.10\\microsoft.aspnetcore.cryptography.keyderivation.8.0.10.nupkg.sha512",

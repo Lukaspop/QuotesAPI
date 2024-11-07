@@ -136,3 +136,4 @@ C:\Users\lukas\Downloads\QuotesApka\Backend\QuotesApp\obj\Debug\net8.0\refint\Qu
 C:\Users\lukas\Downloads\QuotesApka\Backend\QuotesApp\obj\Debug\net8.0\QuotesApp.pdb
 C:\Users\lukas\Downloads\QuotesApka\Backend\QuotesApp\obj\Debug\net8.0\QuotesApp.genruntimeconfig.cache
 C:\Users\lukas\Downloads\QuotesApka\Backend\QuotesApp\obj\Debug\net8.0\ref\QuotesApp.dll
+C:\Users\lukas\Downloads\QuotesApka\Backend\QuotesApp\bin\Debug\net8.0\HtmlAgilityPack.dll

@@ -21,13 +21,13 @@ namespace QuotesApp.Controllers
         }
         [Authorize]
         [HttpGet("me")]
-        
+
         public async Task<ActionResult<IEnumerable<Quote>>> GetMyQuotes()
         {
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var quotes = _context.Quotes.Where(x => x.UserId == userId);
-          return Ok(quotes);
-        }        
+            return Ok(quotes);
+        }
         // GET: api/quotes
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Quote>>> GetQuotes()
@@ -70,47 +70,49 @@ namespace QuotesApp.Controllers
         }
 
 
-        // PUT: api/quotes/{id}
+        [Authorize]
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutQuote(int id, Quote quote)
+        public async Task<IActionResult> UpdateQuote(int id, Quote updatedQuote)
         {
-            if (id != quote.Id)
+            // Získání ID aktuálního uživatele
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var existingQuote = await _context.Quotes.FindAsync(id);
+            if (existingQuote == null)
             {
-                return BadRequest();
+                return NotFound("Quote not found.");
             }
 
-            _context.Entry(quote).State = EntityState.Modified;
-
-            try
+            // Zkontroluj, zda je citát uživatelův
+            if (existingQuote.UserId != userId)
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!QuoteExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return Unauthorized("You can only update your own quotes.");
             }
 
-            return NoContent();
+            // Aktualizace citátu
+            existingQuote.Text = updatedQuote.Text;
+            _context.Entry(existingQuote).State = EntityState.Modified;
+
+            await _context.SaveChangesAsync();
+            return Ok(existingQuote);
         }
-        private bool QuoteExists(int id)
-        {
-            return _context.Quotes.Any(e => e.Id == id);
-        }
-        // DELETE: api/quotes/{id}
+
+        [Authorize]
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteQuote(int id)
+        public async Task<IActionResult> DeleteMyQuote(int id)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
             var quote = await _context.Quotes.FindAsync(id);
             if (quote == null)
             {
                 return NotFound();
+            }
+
+            // Zkontroluj, zda citát patří přihlášenému uživateli
+            if (quote.UserId != userId)
+            {
+                return Unauthorized("You can only delete your own quotes.");
             }
 
             _context.Quotes.Remove(quote);
@@ -118,7 +120,6 @@ namespace QuotesApp.Controllers
 
             return NoContent();
         }
-        
 
     }
 }
