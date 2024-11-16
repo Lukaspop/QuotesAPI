@@ -1,0 +1,10 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Backend",
+    "\\Backend\\QuotesApp",
+    "\\Backend\\QuotesApp\\Data"
+  ],
+  "SelectedNode": "\\Backend\\QuotesApp\\Data\\QuoteDbContext.cs",
+  "PreviewInSolutionExplorer": false
+}
